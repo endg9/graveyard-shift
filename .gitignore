@@ -1,0 +1,6 @@
+node_modules/
+data/audit.jsonl
+.env
+.DS_Store
+# NOTE: .kiro/ is intentionally NOT ignored — the hackathon requires
+# specs, hooks and steering to ship in the repo.

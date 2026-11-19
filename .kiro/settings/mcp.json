@@ -1,0 +1,1 @@
+{"mcpServers":{"graveyard-shift":{"args":["agent/mcp-server.mjs"],"command":"node","description":"Local MCP server for Graveyard Shift — exposes vet_mint (live on-chain vetting of a BSC free-mint contract) and list_candidates (seed Agent-ID mint contracts). Stdio, no network beyond public BSC RPCs and Sourcify.","env":{}}}}

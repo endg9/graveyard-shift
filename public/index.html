@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graveyard Shift — Free-Mint Sentinel</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <div class="moon" aria-hidden="true">🌕</div>
+  <h1>🪦 Graveyard Shift</h1>
+  <p class="tagline">Autonomous free-mint sentinel for Binance Agent ID hunters on BSC.<br>
+  Every tombstone below is a real contract, vetted <em>live on-chain</em> — never trust a "free" mint before the sentinel digs it up.</p>
+  <div class="statusbar">
+    <span id="health">checking chain…</span>
+    <span id="lastRun"></span>
+    <button id="refreshBtn" type="button">↻ Re-vet now</button>
+  </div>
+</header>
+
+<main>
+  <section class="vet-box">
+    <h2>🔍 Vet any contract</h2>
+    <form id="vetForm">
+      <input id="vetAddr" type="text" placeholder="0x… BSC contract address" spellcheck="false" autocomplete="off">
+      <button type="submit">Dig it up</button>
+    </form>
+    <p class="hint">Read-only. The sentinel only makes eth_call probes — it never sends a transaction, never asks for your wallet.</p>
+    <div id="vetResult"></div>
+  </section>
+
+  <section>
+    <h2>⚰️ The Graveyard <span id="count"></span></h2>
+    <p class="legend">
+      <span class="badge safe">SAFE ≥ 70</span>
+      <span class="badge risky">RISKY 40–69</span>
+      <span class="badge trap">TRAP &lt; 40</span>
+      <span class="badge unknown">UNKNOWN</span>
+    </p>
+    <div id="graveyard" class="graveyard"><p class="loading">🦇 Summoning the dead… reading contracts live from BSC.</p></div>
+  </section>
+
+  <section>
+    <h2>📜 Audit trail <span class="muted">(latest patrol runs, newest first)</span></h2>
+    <div id="audit"><p class="loading">No patrol runs yet — the first one starts when the server boots.</p></div>
+  </section>
+
+  <section class="how">
+    <h2>🧟 How the sentinel judges a mint</h2>
+    <ol>
+      <li><strong>Code present?</strong> — is there actually a contract at the address?</li>
+      <li><strong>Source verified?</strong> — Sourcify must match bytecode to published source (−25 if not).</li>
+      <li><strong>Owner?</strong> — a live owner() means one address can still rug or gate the mint (−20).</li>
+      <li><strong>Supply left?</strong> — totalSupply vs maxSupply; sold out is a −40.</li>
+      <li><strong>Slot unused?</strong> — balanceOf / hasClaimed for a probe wallet (−15 if used).</li>
+      <li><strong>Free lane?</strong> — a 0-value static call to mint()/openFree()/claim() must not revert (−30 if none answers).</li>
+    </ol>
+    <p class="muted">Score is deterministic: same on-chain state → same score, every time. Anything the chain cannot answer is labelled <em>unavailable</em>, never invented.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Graveyard Shift · Kiroween 2026 (Frankenstein) · BSC · read-only sentinel · <a href="/api/candidates">API</a> · <a href="/api/health">health</a></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

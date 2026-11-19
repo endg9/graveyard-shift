@@ -1,0 +1,88 @@
+/* Graveyard Shift — Halloween cemetery theme. Vanilla CSS, no frameworks. */
+:root {
+  --bg: #0b0b14;
+  --bg2: #141424;
+  --stone: #2a2a3a;
+  --stone-edge: #4a4a63;
+  --text: #e8e6f0;
+  --muted: #9a97b3;
+  --green: #7ddf8a;
+  --amber: #f5c542;
+  --red: #ff6b6b;
+  --grey: #8a8a9e;
+  --accent: #b388ff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(1200px 500px at 50% -10%, #1d1b33 0%, var(--bg) 60%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+.hero { text-align: center; padding: 2.5rem 1rem 1rem; position: relative; }
+.moon { font-size: 3rem; filter: drop-shadow(0 0 24px #ffe9a8); }
+h1 { font-size: 2.4rem; margin: 0.2rem 0; letter-spacing: 0.03em; }
+.tagline { color: var(--muted); max-width: 640px; margin: 0.5rem auto 1rem; }
+.statusbar { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 0.9rem; }
+.statusbar button, .vet-box button {
+  background: var(--accent); color: #14101f; border: none; border-radius: 8px;
+  padding: 0.5rem 1rem; font-weight: 700; cursor: pointer;
+}
+.statusbar button:hover, .vet-box button:hover { filter: brightness(1.15); }
+main { max-width: 1060px; margin: 0 auto; padding: 0 1rem 3rem; }
+h2 { margin-top: 2.5rem; border-bottom: 1px solid var(--stone-edge); padding-bottom: 0.4rem; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+.loading { color: var(--muted); }
+
+.vet-box form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.vet-box input {
+  flex: 1; min-width: 260px; background: var(--bg2); color: var(--text);
+  border: 1px solid var(--stone-edge); border-radius: 8px; padding: 0.6rem 0.8rem;
+  font-family: ui-monospace, monospace;
+}
+.hint { color: var(--muted); font-size: 0.85rem; }
+
+/* --- tombstones --- */
+.graveyard {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.2rem; align-items: end;
+}
+.tombstone {
+  background: linear-gradient(180deg, #34344a, var(--stone) 30%, #23232f);
+  border: 1px solid var(--stone-edge);
+  border-radius: 130px 130px 10px 10px / 90px 90px 10px 10px;
+  padding: 2.2rem 1.1rem 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  transform: perspective(600px) rotateX(2deg);
+  transition: transform 0.2s ease;
+}
+.tombstone:hover { transform: perspective(600px) rotateX(0deg) translateY(-4px); }
+.tombstone h3 { margin: 0 0 0.2rem; font-size: 1.25rem; text-align: center; }
+.tombstone .addr { text-align: center; font-family: ui-monospace, monospace; font-size: 0.78rem; color: var(--muted); word-break: break-all; }
+.tombstone .score-row { display: flex; justify-content: center; align-items: baseline; gap: 0.6rem; margin: 0.7rem 0; }
+.tombstone .score { font-size: 2rem; font-weight: 800; }
+.badge {
+  display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.05em;
+}
+.badge.safe { background: #12351a; color: var(--green); border: 1px solid var(--green); }
+.badge.risky { background: #3a2f10; color: var(--amber); border: 1px solid var(--amber); }
+.badge.trap { background: #3d1414; color: var(--red); border: 1px solid var(--red); }
+.badge.unknown, .badge.invalid { background: #26262e; color: var(--grey); border: 1px solid var(--grey); }
+.checks { list-style: none; margin: 0.6rem 0 0; padding: 0; font-size: 0.86rem; }
+.checks li { padding: 0.25rem 0; border-top: 1px dashed #3d3d55; }
+.checks .ok { color: var(--green); } .checks .warn { color: var(--amber); }
+.checks .bad { color: var(--red); } .checks .unk { color: var(--grey); }
+.checks small { color: var(--muted); display: block; }
+.tombstone .meta { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 0.6rem; }
+
+/* --- audit table --- */
+.audit-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.audit-table th, .audit-table td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid #26263a; }
+.audit-table td.mono { font-family: ui-monospace, monospace; font-size: 0.78rem; }
+.how ol { padding-left: 1.3rem; }
+.how li { margin: 0.35rem 0; }
+footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 1.5rem; border-top: 1px solid #26263a; }
+footer a { color: var(--accent); }
+.legend { display: flex; gap: 0.5rem; flex-wrap: wrap; }

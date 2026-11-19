@@ -1,0 +1,1 @@
+{"description":"Run the property-based test suite whenever a file under agent/ changes, so a vetting-engine regression is caught before it reaches the dashboard or the MCP server.","name":"run-tests-on-agent-change","then":[{"command":"npm test","type":"runCommand","workingDirectory":"${workspaceFolder}"}],"version":1,"when":{"patterns":["agent/**/*.mjs"],"type":"fileChanged"}}
