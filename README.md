@@ -135,13 +135,22 @@ committed in the repo (never git-ignored):
   (`vet_mint`, `list_candidates`) for Kiro.
 - **Kiro CLI:** installed from `https://cli.kiro.dev/install`
   (kiro-cli 3.5.0, verified with `kiro-cli --version`). `kiro-cli whoami`
-  reports "Not logged in" — using the CLI agent requires signing in with
-  a GitHub/Google/AWS Builder ID account, and no account was created for
-  this build (per project rules: no account registration). So the CLI
-  itself could not execute a build step; the project instead follows the
+  reports "Logged in with Builder ID" (GitHub endg9, Builder ID
+  ruslindg9@gmail.com — signed in 2026-11-19). The project follows the
   Kiro spec-driven methodology with complete, compatible `.kiro/`
-  artifacts, ready to be picked up by Kiro IDE/CLI the moment a signed-in
-  user opens the folder.
+  artifacts, ready to be picked up by Kiro IDE/CLI.
+
+## Deploy (Vercel, free)
+
+- `public/` is served statically; `api/*.mjs` are serverless functions
+  wrapping the same `agent/vet.mjs` engine (live on-chain vetting,
+  5-minute cache). `vercel.json` sets `maxDuration: 60` for the vetting
+  endpoints.
+- Deploy: connect Vercel, then `vercel deploy` (or import the repo in
+  the Vercel dashboard — framework: Other, no build command needed).
+- The 5-minute patrol + audit trail (`agent/watch.mjs`) run on the
+  local server; the serverless deployment is stateless, so `/api/audit`
+  honestly returns an empty trail there.
 
 ## License
 
