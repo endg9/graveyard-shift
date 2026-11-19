@@ -1,0 +1,10 @@
+# Demo build intermediates (not committed)
+seg*.mp4
+v*.mp4
+video-only.mp4
+audio-all.mp3
+narration-*.mp3
+silence.mp3
+concat*.txt
+frame-*.jpg
+snapshot/
