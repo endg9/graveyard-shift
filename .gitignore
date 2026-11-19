@@ -4,3 +4,4 @@ data/audit.jsonl
 .DS_Store
 # NOTE: .kiro/ is intentionally NOT ignored — the hackathon requires
 # specs, hooks and steering to ship in the repo.
+.vercel

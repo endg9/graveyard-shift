@@ -12,7 +12,14 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 export const AUDIT_PATH = join(ROOT, "data", "audit.jsonl");
 
 export async function runWatch(candidates = CANDIDATES) {
-  await mkdir(dirname(AUDIT_PATH), { recursive: true });
+  // Audit log is best-effort: on read-only filesystems (e.g. Vercel
+  // serverless) the append fails with EROFS — verdicts must still flow.
+  let auditOk = true;
+  try {
+    await mkdir(dirname(AUDIT_PATH), { recursive: true });
+  } catch {
+    auditOk = false;
+  }
   const results = [];
   for (const c of candidates) {
     const r = await vetMint(c.address, { name: c.name });
@@ -27,7 +34,13 @@ export async function runWatch(candidates = CANDIDATES) {
       freeLane: r.freeLane,
       checks: r.checks.map(({ id, status, detail }) => ({ id, status, detail })),
     };
-    await appendFile(AUDIT_PATH, JSON.stringify(line) + "\n", "utf8");
+    if (auditOk) {
+      try {
+        await appendFile(AUDIT_PATH, JSON.stringify(line) + "\n", "utf8");
+      } catch {
+        auditOk = false;
+      }
+    }
     results.push(line);
     console.log(`[watch] ${c.name} ${r.address.slice(0, 10)}… verdict=${r.verdict} score=${r.score}`);
   }
